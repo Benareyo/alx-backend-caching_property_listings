@@ -2,16 +2,20 @@ version: '3.9'
 
 services:
   db:
-    image: postgres:latest
+    image: postgres:15
     environment:
       POSTGRES_DB: alx_db
       POSTGRES_USER: alx_user
       POSTGRES_PASSWORD: alx_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
   redis:
-    image: redis:latest
+    image: redis:7
+    volumes:
+      - redis_data:/data
     ports:
       - "6379:6379"
 
@@ -25,4 +29,8 @@ services:
     depends_on:
       - db
       - redis
+
+volumes:
+  postgres_data:
+  redis_data:
 
