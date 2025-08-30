@@ -78,13 +78,14 @@ WSGI_APPLICATION = 'alx_backend_caching_property_listings.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'alx_db',
-        'USER': 'alx_user',
-        'PASSWORD': 'alx_password',
-        'HOST': 'db',  # This is the name of the service in docker-compose
+        'NAME': 'property_db',      # matches POSTGRES_DB in docker-compose
+        'USER': 'postgres',         # matches POSTGRES_USER in docker-compose
+        'PASSWORD': 'postgres',     # matches POSTGRES_PASSWORD in docker-compose
+        'HOST': 'db',               # service name from docker-compose
         'PORT': '5432',
     }
 }
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
