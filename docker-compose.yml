@@ -1,19 +1,20 @@
-# docker-compose.yml
+version: '3.9'
+
 services:
   db:
-    image: postgres:latest       # Use the latest official PostgreSQL image
+    image: postgres:latest
     container_name: alx_backend_caching_property_listings-db
     environment:
-      POSTGRES_USER: postgres    
-      POSTGRES_PASSWORD: postgres  
-      POSTGRES_DB: property_db   
+      POSTGRES_USER: alx_user         # match Django user
+      POSTGRES_PASSWORD: alx_pass     # match Django password
+      POSTGRES_DB: property_db        # match Django database name
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   redis:
-    image: redis:latest          # Use the latest official Redis image
+    image: redis:latest
     container_name: alx_backend_caching_property_listings-redis
     ports:
       - "6379:6379"
@@ -31,6 +32,12 @@ services:
     depends_on:
       - db
       - redis
+    environment:
+      - DB_NAME=property_db
+      - DB_USER=alx_user
+      - DB_PASSWORD=alx_pass
+      - DB_HOST=db
+      - DB_PORT=5432
 
 volumes:
   postgres_data:
